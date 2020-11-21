@@ -1,0 +1,28 @@
+using System;
+
+namespace RecursiveDrawing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            RecursiveDraw(n);
+        }
+
+        private static void RecursiveDraw(int n)
+        {
+            if (n == 0)
+            {
+                return;
+            }
+
+            Console.WriteLine(new string('*', n));
+
+            RecursiveDraw(n - 1);
+
+            Console.WriteLine(new string('#', n));
+        }
+    }
+}
