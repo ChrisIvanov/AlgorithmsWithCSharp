@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+
+namespace _03.Combinations_with_Repetition
+{
+    class Program
+    {
+        private static int n;
+        private static int k;
+        private static int[] combinations;
+
+        static void Main(string[] args)
+        {
+            n = int.Parse(Console.ReadLine());
+            k = int.Parse(Console.ReadLine());
+
+            combinations = new int[k];
+
+            Combinations(0, 1);
+        }
+
+        private static void Combinations(int combIdx, int elementsStartIdx)
+        {
+            if (combIdx >= combinations.Length)
+            {
+                Console.WriteLine(string.Join(" ", combinations));
+                return;
+            }
+
+            for (int i = elementsStartIdx; i <= n; i++)
+            {
+                combinations[combIdx] = i;
+                Combinations(combIdx + 1, i + 1);
+            }
+        }
+    }
+}
