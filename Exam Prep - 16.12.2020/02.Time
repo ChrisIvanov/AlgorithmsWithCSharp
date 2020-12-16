@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _02.Time
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var firstTimeLine = Console.ReadLine()
+                .Split()
+                .Select(int.Parse)
+                .ToArray();
+
+            var secondTimeLine = Console.ReadLine()
+                .Split()
+                .Select(int.Parse)
+                .ToArray();
+
+            var table = new int[firstTimeLine.Length + 1, secondTimeLine.Length + 1];
+
+            for (int r = 1; r < table.GetLength(0); r++)
+            {
+                for (int c = 1; c < table.GetLength(1); c++)
+                {
+                    if (firstTimeLine[r - 1] == secondTimeLine[c - 1])
+                    {
+                        table[r, c] = table[r - 1, c - 1] + 1;
+                    }
+                    else
+                    {
+                        table[r, c] = Math.Max(table[r, c - 1], table[r - 1, c]);
+                    }
+                }
+            }
+
+            var row = firstTimeLine.Length;
+            var col = secondTimeLine.Length;
+
+            var lcs = new Stack<int>();
+
+            while (row > 0 && col > 0)
+            {
+                if (firstTimeLine[row - 1] == secondTimeLine[col - 1])
+                {
+                    lcs.Push(firstTimeLine[row - 1]);
+                    row -= 1;
+                    col -= 1;
+                }
+                else if (table[row, col - 1] >= table[row - 1, col])
+                {
+                    col -= 1;
+                }
+                else
+                {
+                    row -= 1;
+                }
+            }
+
+            Console.WriteLine(string.Join(" ", lcs));
+            Console.WriteLine(lcs.Count);
+        }
+    }
+}
