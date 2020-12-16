@@ -1,0 +1,47 @@
+using System;
+using System.Linq;
+
+namespace _01.Binary_Search
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var numbers = Console.ReadLine()
+                .Split(" ")
+                .Select(int.Parse)
+                .ToArray();
+
+            var number = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(Binary_Search(numbers, number));
+        }
+
+        private static int Binary_Search(int[] arr, int number)
+        {
+            var startIdx = 0;
+            var endIdx = arr.Length - 1;
+
+            while (startIdx <= endIdx)
+            {
+                var midIdx = (startIdx + endIdx) / 2;
+
+                if (arr[midIdx] == number)
+                {
+                    return midIdx;
+                }
+
+                if (number > arr[midIdx])
+                {
+                    startIdx = midIdx + 1;
+                }
+                else
+                {
+                    endIdx = midIdx - 1;
+                }
+            }
+
+            return -1;
+        }
+    }
+}
